@@ -1,7 +1,7 @@
 {
   "name": "react-native-navigation",
-  "version": "2.6.0",
-  "description": "React Native Navigation - truly native navigation for iOS and Android",
+  "version": "2.6.1",
+  "description": "React Native Navigation - RTL layout",
   "license": "MIT",
   "nativePackage": true,
   "author": "Daniel Zlotin <zlotindaniel@gmail.com>",
@@ -9,7 +9,8 @@
     "Tal Kol <talkol@gmail.com>",
     "Guy Carmeli <guyc@wix.com>",
     "Ran Greenberg <rang@wix.com>",
-    "Artal Druk <artald@wix.com>"
+    "Artal Druk <artald@wix.com>",
+    "Hadi Mostafapour <bluetec.ir@gmail.com>"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
