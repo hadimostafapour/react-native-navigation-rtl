@@ -9,6 +9,8 @@ React Native Navigation provides 100% native platform navigation on both iOS and
 
 This repo is a fork of [Wix / React Native Navigation](https://github.com/wix/react-native-navigation/)
 
+__If you don't need RTL, I recommend to use main repo instead__
+
 > Based on `v2.6.0`.
 
 #### RTL Layout
