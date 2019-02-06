@@ -1,6 +1,6 @@
 
 <h1 align="center">
-  React Native Navigation
+  React Native Navigation (+RTL)
 </h1>
 
 React Native Navigation provides 100% native platform navigation on both iOS and Android for React Native apps. The JavaScript API is simple and cross-platform - just install it in your app and give your users the native feel they deserve. Ready to get started? Check out the [docs](https://wix.github.io/react-native-navigation/).
@@ -11,7 +11,7 @@ This repo is a fork of [Wix / React Native Navigation](https://github.com/wix/re
 
 __If you don't need RTL, I recommend to use main repo instead__
 
-> Based on `v2.6.0`.
+> Based on `v2.9.0`.
 
 #### RTL Layout
 ```javascript
@@ -60,6 +60,7 @@ also you can set bottom tabs selected icon, identical to iOS API.
 - [Contributing](/docs/docs/WorkingLocally.md)
 
 # Installation
-As `react-native-navigation` is a native navigation library - integrating it into your app will require editing native files. Follow the installation guides in the [documentation](https://wix.github.io/react-native-navigation/).
+As `react-native-navigation-rtl` is a native navigation library - integrating it into your app will require editing native files. Follow the installation guides in the [documentation](https://wix.github.io/react-native-navigation/).
 
 
+> Follow official installation instructions, but instead of `react-native-navigation` install `react-native-navigation-rtl` package.

@@ -35,18 +35,20 @@ import static com.reactnativenavigation.utils.CollectionUtils.map;
 
 public class BottomTabsController extends ParentController implements AHBottomNavigation.OnTabSelectedListener, TabSelector {
 
-    private BottomTabs bottomTabs;
-    private List<ViewController> tabs;
+	private BottomTabs bottomTabs;
+	private List<ViewController> tabs;
     private EventEmitter eventEmitter;
     private ImageLoader imageLoader;
+    private final BottomTabsAttacher tabsAttacher;
     private BottomTabsPresenter presenter;
     private BottomTabPresenter tabPresenter;
 
-    public BottomTabsController(Activity activity, List<ViewController> tabs, ChildControllersRegistry childRegistry, EventEmitter eventEmitter, ImageLoader imageLoader, String id, Options initialOptions, Presenter presenter, BottomTabsPresenter bottomTabsPresenter, BottomTabPresenter bottomTabPresenter) {
-        super(activity, childRegistry, id, presenter, initialOptions);
+    public BottomTabsController(Activity activity, List<ViewController> tabs, ChildControllersRegistry childRegistry, EventEmitter eventEmitter, ImageLoader imageLoader, String id, Options initialOptions, Presenter presenter, BottomTabsAttacher tabsAttacher, BottomTabsPresenter bottomTabsPresenter, BottomTabPresenter bottomTabPresenter) {
+		super(activity, childRegistry, id, presenter, initialOptions);
         this.tabs = tabs;
         this.eventEmitter = eventEmitter;
         this.imageLoader = imageLoader;
+        this.tabsAttacher = tabsAttacher;
         this.presenter = bottomTabsPresenter;
         this.tabPresenter = bottomTabPresenter;
         forEach(tabs, (tab) -> tab.setParentController(this));
@@ -60,21 +62,22 @@ public class BottomTabsController extends ParentController implements AHBottomNa
     }
 
     @NonNull
-    @Override
-    protected ViewGroup createView() {
-        RelativeLayout root = new RelativeLayout(getActivity());
-        bottomTabs = createBottomTabs();
+	@Override
+	protected ViewGroup createView() {
+		RelativeLayout root = new RelativeLayout(getActivity());
+		bottomTabs = createBottomTabs();
+        tabsAttacher.init(root, resolveCurrentOptions());
         presenter.bindView(bottomTabs, this);
         tabPresenter.bindView(bottomTabs);
         bottomTabs.setOnTabSelectedListener(this);
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
-        lp.addRule(ALIGN_PARENT_BOTTOM);
-        root.addView(bottomTabs, lp);
-        bottomTabs.addSelectedIconsDrawable(loadSelectedIcons());
-        bottomTabs.addItems(createTabs());
-        attachTabs(root);
+		RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
+		lp.addRule(ALIGN_PARENT_BOTTOM);
+		root.addView(bottomTabs, lp);
+		bottomTabs.addSelectedIconsDrawable(loadSelectedIcons());
+		bottomTabs.addItems(createTabs());
+        tabsAttacher.attach();
         return root;
-    }
+	}
 
     @NonNull
     protected BottomTabs createBottomTabs() {
@@ -123,9 +126,9 @@ public class BottomTabsController extends ParentController implements AHBottomNa
     }
 
     @Override
-    public boolean handleBack(CommandListener listener) {
-        return !tabs.isEmpty() && tabs.get(bottomTabs.getCurrentItem()).handleBack(listener);
-    }
+	public boolean handleBack(CommandListener listener) {
+		return !tabs.isEmpty() && tabs.get(bottomTabs.getCurrentItem()).handleBack(listener);
+	}
 
     @Override
     public void sendOnNavigationButtonPressed(String buttonId) {
@@ -143,7 +146,7 @@ public class BottomTabsController extends ParentController implements AHBottomNa
         if (wasSelected) return false;
         selectTab(index);
         return false;
-    }
+	}
 
     private List<Drawable> loadSelectedIcons() {
         return map(tabs, tab -> {
@@ -156,8 +159,8 @@ public class BottomTabsController extends ParentController implements AHBottomNa
         });
     }
 
-    private List<AHBottomNavigationItem> createTabs() {
-        if (tabs.size() > 5) throw new RuntimeException("Too many tabs!");
+	private List<AHBottomNavigationItem> createTabs() {
+		if (tabs.size() > 5) throw new RuntimeException("Too many tabs!");
         return map(tabs, tab -> {
             BottomTabOptions options = tab.resolveCurrentOptions().bottomTabOptions;
             return new AHBottomNavigationItem(
@@ -166,35 +169,31 @@ public class BottomTabsController extends ParentController implements AHBottomNa
                     options.testId.get("")
             );
         });
-    }
-
-    private void attachTabs(RelativeLayout root) {
-        for (int i = 0; i < tabs.size(); i++) {
-            ViewGroup tab = tabs.get(i).getView();
-            tab.setLayoutParams(new RelativeLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT));
-            Options options = resolveCurrentOptions();
-            presenter.applyLayoutParamsOptions(options, i);
-            if (i != 0) tab.setVisibility(View.INVISIBLE);
-            root.addView(tab);
-        }
-    }
+	}
 
     public int getSelectedIndex() {
-        return bottomTabs.getCurrentItem();
-    }
+		return bottomTabs.getCurrentItem();
+	}
 
-    @NonNull
+	@NonNull
+	@Override
+	public Collection<ViewController> getChildControllers() {
+		return tabs;
+	}
+
     @Override
-    public Collection<ViewController> getChildControllers() {
-        return tabs;
+    public void destroy() {
+        tabsAttacher.destroy();
+        super.destroy();
     }
 
     @Override
     public void selectTab(final int newIndex) {
+        tabsAttacher.onTabSelected(tabs.get(newIndex));
         getCurrentView().setVisibility(View.INVISIBLE);
         bottomTabs.setCurrentItem(newIndex, false);
         getCurrentView().setVisibility(View.VISIBLE);
-        bottomTabs.setSelectedIcon(newIndex);
+		bottomTabs.setSelectedIcon(newIndex);
     }
 
     @NonNull

@@ -36,12 +36,9 @@ const NSInteger BLUR_TOPBAR_TAG = 78264802;
 
 - (void)rnn_setNavigationBarNoBorder:(BOOL)noBorder {
 	if (noBorder) {
-		self.navigationBar
-		.shadowImage = [[UIImage alloc] init];
-		[self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+		[self.navigationBar setShadowImage:[[UIImage alloc] init]];
 	} else {
-		self.navigationBar
-		.shadowImage = nil;
+		[self.navigationBar setShadowImage:nil];
 	}
 }
 
@@ -51,7 +48,7 @@ const NSInteger BLUR_TOPBAR_TAG = 78264802;
 
 - (void)rnn_setNavigationBarFontFamily:(NSString *)fontFamily fontSize:(NSNumber *)fontSize color:(UIColor *)color {
 	NSDictionary* fontAttributes = [RNNFontAttributesCreator createFontAttributesWithFontFamily:fontFamily fontSize:fontSize color:color];
-	
+
 	if (fontAttributes.allKeys.count > 0) {
 		self.navigationBar.titleTextAttributes = fontAttributes;
 	}
@@ -105,30 +102,30 @@ const NSInteger BLUR_TOPBAR_TAG = 78264802;
 		backItem.image = color
 		? [[icon withTintColor:color] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
 		: icon;
-		
+
 		[self.navigationBar setBackIndicatorImage:[UIImage new]];
 		[self.navigationBar setBackIndicatorTransitionMaskImage:[UIImage new]];
 	}
-	
+
 	UIViewController *lastViewControllerInStack = self.viewControllers.count > 1 ? [self.viewControllers objectAtIndex:self.viewControllers.count-2] : self.topViewController;
 
 
-    	NSMutableDictionary* textAttributes = [[NSMutableDictionary alloc] init];
+	NSMutableDictionary* textAttributes = [[NSMutableDictionary alloc] init];
 
-    	UIFont *font = fontFamily ? [UIFont fontWithName:fontFamily size:[fontSize floatValue]] : [UIFont systemFontOfSize:[fontSize floatValue]];
-    	[textAttributes setObject:font forKey:NSFontAttributeName];
+	UIFont *font = fontFamily ? [UIFont fontWithName:fontFamily size:[fontSize floatValue]] : [UIFont systemFontOfSize:[fontSize floatValue]];
+	[textAttributes setObject:font forKey:NSFontAttributeName];
 
-    	if(textColor) {
-    		[textAttributes setObject:textColor forKey:NSForegroundColorAttributeName];
-    	}
-    	[backItem setTitleTextAttributes:textAttributes forState:UIControlStateNormal];
-        	[backItem setTitleTextAttributes:textAttributes forState:UIControlStateHighlighted];
+	if(textColor) {
+		[textAttributes setObject:textColor forKey:NSForegroundColorAttributeName];
+	}
 
-	
-	
+	[backItem setTitleTextAttributes:textAttributes forState:UIControlStateNormal];
+	[backItem setTitleTextAttributes:textAttributes forState:UIControlStateHighlighted];
+
+
 	backItem.title = title ? title : lastViewControllerInStack.navigationItem.title;
 	backItem.tintColor = color;
-	
+
 	lastViewControllerInStack.navigationItem.backBarButtonItem = backItem;
 }
 

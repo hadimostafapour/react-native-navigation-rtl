@@ -38,63 +38,70 @@
 
 - (void)testApplyOptions_shouldSetBackButtonOnBindedViewController_withTitle {
 	Text* title = [[Text alloc] initWithValue:@"Title"];
+	NSNumber* backButtonFontSize = @(17);
 	self.options.topBar.backButton.title = title;
-	[[_bindedViewController expect] rnn_setBackButtonIcon:nil withColor:nil title:title.get];
+	[[_bindedViewController expect] rnn_setBackButtonIcon:nil withColor:nil title:title.get fontFamily:nil fontSize:backButtonFontSize textColor:nil];
 	[self.uut applyOptions:self.options];
 	[_bindedViewController verify];
 }
 
 - (void)testApplyOptions_shouldSetBackButtonOnBindedViewController_withHideTitle {
 	Text* title = [[Text alloc] initWithValue:@"Title"];
+	NSNumber* backButtonFontSize = @(17);
 	self.options.topBar.backButton.title = title;
 	self.options.topBar.backButton.showTitle = [[Bool alloc] initWithValue:@(0)];
-	[[_bindedViewController expect] rnn_setBackButtonIcon:nil withColor:nil title:@""];
+	[[_bindedViewController expect] rnn_setBackButtonIcon:nil withColor:nil title:@"" fontFamily:nil fontSize:backButtonFontSize textColor:nil];
 	[self.uut applyOptions:self.options];
 	[_bindedViewController verify];
 }
 
 - (void)testApplyOptions_shouldSetBackButtonOnBindedViewController_withIcon {
 	Image* image = [[Image alloc] initWithValue:[UIImage new]];
+	NSNumber* backButtonFontSize = @(17);
 	self.options.topBar.backButton.icon = image;
-	[[_bindedViewController expect] rnn_setBackButtonIcon:image.get withColor:nil title:nil];
+	[[_bindedViewController expect] rnn_setBackButtonIcon:image.get withColor:nil title:nil fontFamily:nil fontSize:backButtonFontSize textColor:nil];
 	[self.uut applyOptions:self.options];
 	[_bindedViewController verify];
 }
 
 - (void)testApplyOptionsOnWillMoveToParent_shouldSetBackButtonOnBindedViewController_withTitle {
 	Text* title = [[Text alloc] initWithValue:@"Title"];
+	NSNumber* backButtonFontSize = @(17);
 	self.options.topBar.backButton.title = title;
-	[[_bindedViewController expect] rnn_setBackButtonIcon:nil withColor:nil title:title.get];
+	[[_bindedViewController expect] rnn_setBackButtonIcon:nil withColor:nil title:title.get fontFamily:nil fontSize:backButtonFontSize textColor:nil];
 	[self.uut applyOptionsOnWillMoveToParentViewController:self.options];
 	[_bindedViewController verify];
 }
 
 - (void)testApplyOptionsOnWillMoveToParent_shouldSetBackButtonOnBindedViewController_withHideTitle {
 	Text* title = [[Text alloc] initWithValue:@"Title"];
+	NSNumber* backButtonFontSize = @(17);
 	self.options.topBar.backButton.title = title;
 	self.options.topBar.backButton.showTitle = [[Bool alloc] initWithValue:@(0)];
-	[[_bindedViewController expect] rnn_setBackButtonIcon:nil withColor:nil title:@""];
+	[[_bindedViewController expect] rnn_setBackButtonIcon:nil withColor:nil title:@"" fontFamily:nil fontSize:backButtonFontSize textColor:nil];
 	[self.uut applyOptionsOnWillMoveToParentViewController:self.options];
 	[_bindedViewController verify];
 }
 
 - (void)testApplyOptionsOnWillMoveToParent_shouldSetBackButtonOnBindedViewController_withIcon {
 	Image* image = [[Image alloc] initWithValue:[UIImage new]];
+	NSNumber* backButtonFontSize = @(17);
 	self.options.topBar.backButton.icon = image;
-	[[_bindedViewController expect] rnn_setBackButtonIcon:image.get withColor:nil title:nil];
+	[[_bindedViewController expect] rnn_setBackButtonIcon:image.get withColor:nil title:nil fontFamily:nil fontSize:backButtonFontSize textColor:nil];
 	[self.uut applyOptionsOnWillMoveToParentViewController:self.options];
 	[_bindedViewController verify];
 }
 
 - (void)testApplyOptionsOnWillMoveToParent_shouldSetBackButtonOnBindedViewController_withDefaultValues {
-	[[_bindedViewController expect] rnn_setBackButtonIcon:nil withColor:nil title:nil];
+    NSNumber* backButtonFontSize = @(17);
+	[[_bindedViewController expect] rnn_setBackButtonIcon:nil withColor:nil title:nil fontFamily:nil fontSize:backButtonFontSize textColor:nil];
 	[self.uut applyOptionsOnWillMoveToParentViewController:self.options];
 	[_bindedViewController verify];
 }
 
 - (void)testApplyOptionsBeforePoppingShouldSetTopBarBackgroundForPoppingViewController {
 	_options.topBar.background.color = [[Color alloc] initWithValue:[UIColor redColor]];
-	
+
 	[[_bindedViewController expect] setTopBarBackgroundColor:_options.topBar.background.color.get];
 	[self.uut applyOptionsBeforePopping:self.options];
 	[_bindedViewController verify];
@@ -102,14 +109,14 @@
 
 - (void)testApplyOptionsBeforePoppingShouldSetLargeTitleForPoppingViewController {
 	_options.topBar.largeTitle.visible = [[Bool alloc] initWithBOOL:YES];
-	
+
 	[self.uut applyOptionsBeforePopping:self.options];
 	XCTAssertTrue([[self.uut.bindedViewController navigationBar] prefersLargeTitles]);
 }
 
 - (void)testApplyOptionsBeforePoppingShouldSetDefaultLargeTitleFalseForPoppingViewController {
 	_options.topBar.largeTitle.visible = nil;
-	
+
 	[self.uut applyOptionsBeforePopping:self.options];
 	XCTAssertFalse([[self.uut.bindedViewController navigationBar] prefersLargeTitles]);
 }
