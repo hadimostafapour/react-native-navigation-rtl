@@ -48,7 +48,7 @@ const NSInteger BLUR_TOPBAR_TAG = 78264802;
 
 - (void)rnn_setNavigationBarFontFamily:(NSString *)fontFamily fontSize:(NSNumber *)fontSize color:(UIColor *)color {
 	NSDictionary* fontAttributes = [RNNFontAttributesCreator createFontAttributesWithFontFamily:fontFamily fontSize:fontSize color:color];
-
+	
 	if (fontAttributes.allKeys.count > 0) {
 		self.navigationBar.titleTextAttributes = fontAttributes;
 	}
@@ -102,13 +102,13 @@ const NSInteger BLUR_TOPBAR_TAG = 78264802;
 		backItem.image = color
 		? [[icon withTintColor:color] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
 		: icon;
-
+		
 		[self.navigationBar setBackIndicatorImage:[UIImage new]];
 		[self.navigationBar setBackIndicatorTransitionMaskImage:[UIImage new]];
 	}
-
+	
 	UIViewController *lastViewControllerInStack = self.viewControllers.count > 1 ? [self.viewControllers objectAtIndex:self.viewControllers.count-2] : self.topViewController;
-
+	
 
 	NSMutableDictionary* textAttributes = [[NSMutableDictionary alloc] init];
 
@@ -125,7 +125,7 @@ const NSInteger BLUR_TOPBAR_TAG = 78264802;
 
 	backItem.title = title ? title : lastViewControllerInStack.navigationItem.title;
 	backItem.tintColor = color;
-
+	
 	lastViewControllerInStack.navigationItem.backBarButtonItem = backItem;
 }
 

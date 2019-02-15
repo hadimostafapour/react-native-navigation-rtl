@@ -35,7 +35,7 @@
 	UIViewController* viewController = [UIViewController new];
 	UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:viewController];
 	UIImage* icon = [UIImage new];
-
+	
 	NSNumber* backButtonFontSize = @(17);
 	[nav rnn_setBackButtonIcon:icon withColor:nil title:nil fontFamily:nil fontSize:backButtonFontSize textColor:nil];
 	XCTAssertEqual(icon, viewController.navigationItem.backBarButtonItem.image);

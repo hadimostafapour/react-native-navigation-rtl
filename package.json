@@ -1,7 +1,7 @@
 {
   "name": "react-native-navigation-rtl",
-  "version": "2.9.0",
-  "description": "React Native Navigation - RTL layout",
+  "version": "2.11.1",
+  "description": "React Native Navigation - truly native navigation for iOS and Android",
   "license": "MIT",
   "nativePackage": true,
   "author": "Daniel Zlotin <zlotindaniel@gmail.com>",
