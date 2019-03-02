@@ -1,6 +1,6 @@
 {
   "name": "react-native-navigation-rtl",
-  "version": "2.13.1",
+  "version": "2.13.2",
   "description": "React Native Navigation - truly native navigation for iOS and Android",
   "license": "MIT",
   "nativePackage": true,
@@ -9,7 +9,7 @@
     "Tal Kol <talkol@gmail.com>",
     "Guy Carmeli <guyc@wix.com>",
     "Ran Greenberg <rang@wix.com>",
-    "Artal Druk <artald@wix.com>"
+    "Artal Druk <artald@wix.com>",
     "Hadi Mostafapour <bluetec.ir@gmail.com>"
   ],
   "publishConfig": {
