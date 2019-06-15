@@ -1,5 +1,6 @@
 
 <h1 align="center">
+  <img src=".logo.png"/><br>
   React Native Navigation (+RTL)
 </h1>
 
@@ -9,9 +10,10 @@ React Native Navigation provides 100% native platform navigation on both iOS and
 
 This repo is a fork of [Wix / React Native Navigation](https://github.com/wix/react-native-navigation/)
 
-__If you don't need RTL, I recommend to use main repo instead__
+__~~If you don't need RTL, I recommend to use main repo instead~~__
+RTL PR got merged into main repo, but Android BottomTabs and iOS Back Button Options are available only in this repo.
 
-> Based on `v2.9.0`.
+> Based on `v2.21.0`.
 
 #### RTL Layout
 ```javascript

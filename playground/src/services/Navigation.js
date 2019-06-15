@@ -25,7 +25,7 @@ const dismissOverlay = (name) => Navigation.dismissOverlay(name);
 
 const popToRoot = (self) => Navigation.popToRoot(self.props.componentId);
 
-const mergeOptions = (self, options) => Navigation.mergeOptions(self.props.componentId, options);
+const mergeOptions = (selfOrCompId, options) => Navigation.mergeOptions(compId(selfOrCompId), options);
 
 const setStackRoot = (self, root) => Navigation.setStackRoot(self.props.componentId, root)
 
@@ -48,5 +48,6 @@ module.exports = {
   popTo: Navigation.popTo.bind(Navigation),
   setDefaultOptions: Navigation.setDefaultOptions.bind(Navigation),
   setRoot: Navigation.setRoot.bind(Navigation),
+  TouchablePreview: Navigation.TouchablePreview,
   setStackRoot
 }

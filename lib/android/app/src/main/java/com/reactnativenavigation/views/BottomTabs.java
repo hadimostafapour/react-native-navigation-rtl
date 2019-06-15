@@ -35,7 +35,6 @@ public class BottomTabs extends AHBottomNavigation {
     public BottomTabs(Context context) {
         super(context);
         setId(CompatUtils.generateViewId());
-        setContentDescription("BottomTabs");
     }
 
     @Override
